@@ -395,7 +395,10 @@ typedef enum {
     const CGFloat kMinMenuItemWidth = 32.f;
     const CGFloat kMarginX = 10.f;
     const CGFloat kMarginY = 5.f;
-    
+
+    CGFloat screenScale = 2;
+    CGAffineTransform transformByScreenScale = CGAffineTransformMakeScale(1/screenScale, 1/screenScale);
+
     UIFont *titleFont = [KxMenu titleFont];
     if (!titleFont) titleFont = [UIFont boldSystemFontOfSize:16];
     
@@ -405,9 +408,9 @@ typedef enum {
     
     for (KxMenuItem *menuItem in _menuItems) {
         
-        const CGSize imageSize = menuItem.image.size;        
+        const CGSize imageSize = CGSizeApplyAffineTransform(menuItem.image.size, transformByScreenScale);
         if (imageSize.width > maxImageWidth)
-            maxImageWidth = imageSize.width;        
+            maxImageWidth = imageSize.width;
     }
     
     if (maxImageWidth) {
@@ -417,7 +420,7 @@ typedef enum {
     for (KxMenuItem *menuItem in _menuItems) {
 
         const CGSize titleSize = [menuItem.title sizeWithFont:titleFont];
-        const CGSize imageSize = menuItem.image.size;
+        const CGSize imageSize = CGSizeApplyAffineTransform(menuItem.image.size, transformByScreenScale);
 
         const CGFloat itemHeight = MAX(titleSize.height, imageSize.height) + kMarginY * 2;
         const CGFloat itemWidth = ((!menuItem.enabled && !menuItem.image) ? titleSize.width : maxImageWidth + titleSize.width) + kMarginX * 4;
@@ -516,6 +519,7 @@ typedef enum {
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
             imageView.image = menuItem.image;
             imageView.clipsToBounds = YES;
+            imageView.contentScaleFactor = screenScale;
             imageView.contentMode = UIViewContentModeCenter;
             imageView.autoresizingMask = UIViewAutoresizingNone;
             [itemView addSubview:imageView];
