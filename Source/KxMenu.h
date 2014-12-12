@@ -34,6 +34,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString const*KxMenuDismissNotification;
+////////////////////////////////////////////////////////////////////////////////////////////////////
 @interface KxMenuItem : NSObject
 
 @property (readwrite, nonatomic, strong) UIImage *image;
@@ -50,6 +52,7 @@
 
 @end
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 @interface KxMenu : NSObject
 
 + (void) showMenuInView:(UIView *)view

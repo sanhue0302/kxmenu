@@ -39,8 +39,9 @@
 #import "KxMenu.h"
 #import <QuartzCore/QuartzCore.h>
 
-const CGFloat kArrowSize = 12.f;
 
+const CGFloat kArrowSize = 12.f;
+NSString const*KxMenuDismissNotification = @"KxMenuDismissNotification";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -370,6 +371,8 @@ typedef enum {
                 [self.superview removeFromSuperview];
             [self removeFromSuperview];
         }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:KxMenuDismissNotification object:nil];
     }
 }
 
