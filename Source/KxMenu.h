@@ -34,7 +34,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString const*KxMenuDismissNotification;
+extern NSString *KxMenuDismissNotification;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 @interface KxMenuItem : NSObject
 
